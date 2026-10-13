@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="favGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ffe0"/>
+      <stop offset="50%" stop-color="#00b4d8"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="favGradRev" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff007f"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#00ffe0"/>
+    </linearGradient>
+    <linearGradient id="favBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091124"/>
+      <stop offset="100%" stop-color="#02040a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background with aerospace border -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#favBg)" stroke="url(#favGrad)" stroke-width="2.5"/>
+
+  <!-- Subtle inner neon glow rim -->
+  <rect x="5" y="5" width="54" height="54" rx="11" fill="none" stroke="#00ffe0" stroke-width="0.75" stroke-opacity="0.3"/>
+
+  <!-- Code Caliper Left < -->
+  <path d="M 15 26 L 10 32 L 15 38" stroke="#00ffe0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Code Caliper Right > -->
+  <path d="M 49 26 L 54 32 L 49 38" stroke="#a855f7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 3D Beveled Z Top Bar -->
+  <polygon points="19,18 45,18 39,25 25,25" fill="url(#favGrad)"/>
+  <!-- Specular top edge -->
+  <line x1="20" y1="19" x2="44" y2="19" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- 3D Beveled Z Center Diagonal -->
+  <polygon points="45,18 27,45 20,45 37,25" fill="url(#favGrad)"/>
+  <!-- Center Diagonal Ridge Highlight -->
+  <line x1="42" y1="21" x2="23" y2="44" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- 3D Beveled Z Bottom Bar -->
+  <polygon points="26,39 45,39 45,46 19,46" fill="url(#favGradRev)"/>
+  <!-- Specular bottom edge -->
+  <line x1="20" y1="45" x2="44" y2="45" stroke="#ffffff" stroke-width="0.9" stroke-linecap="round" stroke-opacity="0.6"/>
+
+  <!-- Quantum Diamond Core Reactor -->
+  <polygon points="32,27 37,32 32,37 27,32" fill="#ffffff"/>
+  <circle cx="32" cy="32" r="2" fill="#00ffe0"/>
+</svg>
