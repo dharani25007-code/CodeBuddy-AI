@@ -13,6 +13,7 @@ import os
 import sqlite3
 import tempfile
 import time
+from typing import Any, cast
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -33,9 +34,10 @@ def _load_module():
     db_path = os.path.join(temp_dir.name, "codebuddy_test.db")
     os.environ["CODEBUDDY_DB_PATH"] = db_path
     spec = importlib.util.spec_from_file_location("codebuddy_reg", APP_PATH)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Unable to load module spec from {APP_PATH}")
     module = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
-    spec.loader.exec_module(module)
+    cast(Any, spec.loader).exec_module(module)
     return module, temp_dir
 
 
@@ -202,6 +204,7 @@ class DbHelperRegressionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.module, cls.temp_dir = _load_module()
+        cls.module.app.config["TESTING"] = True
 
     @classmethod
     def tearDownClass(cls):
@@ -225,6 +228,22 @@ class DbHelperRegressionTests(unittest.TestCase):
         finally:
             conn.close()
         return user_id
+
+    def _login(self, client, email):
+        response = client.post(
+            "/login",
+            data={"email": email, "password": TEST_PASSWORD},
+            follow_redirects=False,
+        )
+        self.assertIn(response.status_code, (200, 302))
+
+    def _request_otp(self, client, email):
+        with patch.object(self.module, "send_delete_otp_email", return_value=None):
+            return client.post("/delete_account/request_otp", data={"email": email})
+
+    def _delete_otp_from_session(self, client):
+        with client.session_transaction() as sess:
+            return sess.get("delete_otp")
 
     def test_bump_stat_reuses_caller_conn_without_lock(self):
         # Regression for the "database is locked" bug: bump_stat must honor a
@@ -267,6 +286,50 @@ class DbHelperRegressionTests(unittest.TestCase):
         conn.close()
         self.assertIsNotNone(row)
         self.assertGreaterEqual(row["streak_days"], 1)
+
+    def test_account_deletion_cascades_all_tables(self):
+        email = "cascade@example.com"
+        user_id = self._seed_user(email)
+        conn = sqlite3.connect(self.module.DB_PATH)
+        conn.execute("INSERT OR REPLACE INTO mood_signals(user_id, conversation_id, mood, score) VALUES (?, ?, 'frustrated', 0.8)", (user_id, 1))
+        conn.execute("INSERT OR REPLACE INTO code_dna(user_id, profile, sample_count) VALUES (?, '{}', 1)", (user_id,))
+        conn.execute("INSERT OR REPLACE INTO duck_sessions(user_id, conversation_id, active) VALUES (?, 1, 1)", (user_id,))
+        conn.execute("INSERT OR REPLACE INTO changelogs(user_id, date, entry) VALUES (?, '2026-01-01', 'diary')", (user_id,))
+        conn.commit()
+        conn.close()
+
+        client = self.module.app.test_client()
+        self._login(client, email)
+        self._request_otp(client, email)
+        otp = self._delete_otp_from_session(client)
+
+        resp = client.post(
+            "/delete_account",
+            data={"email": email, "password": TEST_PASSWORD, "otp": otp},
+        )
+        self.assertEqual(resp.status_code, 200)
+
+        conn = sqlite3.connect(self.module.DB_PATH)
+        for tbl in ["users", "user_stats", "mood_signals", "code_dna", "duck_sessions", "changelogs"]:
+            count = conn.execute(f"SELECT COUNT(*) FROM {tbl} WHERE user_id=?", (user_id,)).fetchone()[0]
+            self.assertEqual(count, 0, f"Expected 0 rows in {tbl} after cascade deletion")
+        conn.close()
+
+    def test_run_code_blocks_dangerous_system_calls_in_fallback(self):
+        email = "safeexec@example.com"
+        self._seed_user(email)
+        client = self.module.app.test_client()
+        self._login(client, email)
+
+        with patch.object(self.module, "_ai_call", side_effect=RuntimeError("AI offline")):
+            resp = client.post(
+                "/run_code",
+                json={"language": "python", "code": "import os\nos.system('echo dangerous')"},
+            )
+            self.assertEqual(resp.status_code, 200)
+            data = resp.get_json()
+            self.assertEqual(data.get("exit_code"), -1)
+            self.assertIn("blocked", data.get("output", "").lower())
 
 
 if __name__ == "__main__":
