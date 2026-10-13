@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CodeBuddy · Collaborate · {{ room.chat_title }}</title>
+  <title>Zanaks AI · Collaborate · {{ room.chat_title }}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet"
@@ -446,7 +446,7 @@
 
     .msg-row.bot .bubble-forge::before,
     .msg-row.assistant .bubble-forge::before {
-      content: 'CODEBUDDY·AI';
+      content: 'ZANAKS·AI';
       display: block;
       font-family: var(--display);
       font-size: 11px;
@@ -1258,7 +1258,7 @@
     <div class="main">
     <div class="topbar">
       <button class="mobile-nav-btn" onclick="toggleSidebar()">☰</button>
-      <div class="topbar-brand">CODEBUDDY</div>
+      <div class="topbar-brand">ZANAKS AI</div>
       <div class="topbar-sep"></div>
       <div class="topbar-title">{{ room.chat_title }}</div>
       <span class="topbar-badge">🤝 LIVE SESSION</span>
@@ -1271,7 +1271,7 @@
         <div style="font-size:40px;margin-bottom:16px">🤝</div>
         <div style="font-family:var(--display);font-size:11px;letter-spacing:3px;color:var(--plasma)">LIVE SESSION
           ACTIVE</div>
-        <div style="font-family:var(--mono);font-size:12px;color:var(--text-3);margin-top:8px">Ask CodeBuddy anything —
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text-3);margin-top:8px">Ask Zanaks AI anything —
           both of you see the answer in real time</div>
       </div>
       {% endif %}
@@ -1318,7 +1318,7 @@
     <div class="input-area">
       <div class="input-row">
         <textarea id="msgInput" class="input-box" rows="1"
-          placeholder="Ask CodeBuddy anything — both of you see the answer…" onkeydown="handleKey(event)"
+          placeholder="Ask Zanaks AI anything — both of you see the answer…" onkeydown="handleKey(event)"
           oninput="autoResize(this);sendTyping()"></textarea>
         <button class="send-btn" id="sendBtn" onclick="sendMessage()">▶</button>
       </div>
