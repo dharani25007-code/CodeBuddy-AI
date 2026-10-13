@@ -2853,13 +2853,12 @@ def register():
     return render_template("register.html")
 
 def generate_valid_username(email_or_name):
-    clean = re.sub(r'[^a-zA-Z0-9]', '', email_or_name.split('@')[0])
-    prefix = clean[:10]
-    p_lower = "".join(c for c in prefix if c.isalpha()).lower()
-    if not p_lower:
-        p_lower = "usr"
-    username = f"G_{p_lower[:8]}_{secrets.randbelow(100)}!"
-    return username
+    raw = email_or_name.split('@')[0] if '@' in email_or_name else email_or_name
+    clean = re.sub(r'[^a-zA-Z0-9_]', '', raw.replace(' ', '_')).strip('_')
+    if not clean:
+        clean = "coder"
+    clean = clean.lower()[:14]
+    return f"{clean}_{secrets.randbelow(900) + 100}"
 
 def _get_google_redirect_uri():
     redirect_uri = url_for("login_google_callback", _external=True)
@@ -2966,14 +2965,15 @@ def login_google_callback():
         update_streak(user_by_email["id"])
         return redirect(url_for("dashboard"))
         
-    base_username = generate_valid_username(email)
+    full_name = user_info.get("name") or user_info.get("given_name") or email
+    base_username = generate_valid_username(full_name)
     username = base_username
     attempts = 0
     while attempts < 10:
         existing_username = conn.execute("SELECT id FROM users WHERE username=?", (username,)).fetchone()
         if not existing_username:
             break
-        username = generate_valid_username(email)
+        username = generate_valid_username(full_name)
         attempts += 1
         
     dummy_pass = secrets.token_hex(16)
