@@ -23,6 +23,21 @@ codebuddy.db-journal
 # VS Code
 .vscode/
 
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+
+# Subproject artifacts & databases
+**/instance/
+*.sqlite3
+interview_simulator.db
+interview-simulator/backend/.env
+
+# Audio caches
+voice_profiles/*
+coqui_profiles/
+
 # OS
 .DS_Store
 Thumbs.db
