@@ -631,7 +631,9 @@ try:
     _REDIS_OK = True
 except Exception:
     _REDIS_OK = False
-    _rate_store = defaultdict(list)
+
+_rate_store = defaultdict(list)
+_rate_lock = threading.Lock()
 
 
 def rate_limit(max_calls=20, window=60):
@@ -653,14 +655,21 @@ def rate_limit(max_calls=20, window=60):
                     retry_after = int(window)
                     return jsonify({"error": "Rate limit exceeded. Please wait.", "retry_after": retry_after}), 429
             else:
-                calls = [t for t in _rate_store[key] if now - t < window]
-                if len(calls) >= max_calls:
-                    # Calculate seconds until oldest call expires
-                    oldest = min(calls)
-                    retry_after = max(1, int(window - (now - oldest)) + 1)
-                    return jsonify({"error": "Rate limit exceeded. Please wait.", "retry_after": retry_after}), 429
-                calls.append(now)
-                _rate_store[key] = calls
+                with _rate_lock:
+                    # Periodically clean up stale keys to prevent unbounded memory growth
+                    if len(_rate_store) > 1000:
+                        stale = [k for k, v in _rate_store.items() if not v or (now - v[-1]) > window * 5]
+                        for k in stale:
+                            _rate_store.pop(k, None)
+
+                    calls = [t for t in _rate_store[key] if now - t < window]
+                    if len(calls) >= max_calls:
+                        # Calculate seconds until oldest call expires
+                        oldest = min(calls)
+                        retry_after = max(1, int(window - (now - oldest)) + 1)
+                        return jsonify({"error": "Rate limit exceeded. Please wait.", "retry_after": retry_after}), 429
+                    calls.append(now)
+                    _rate_store[key] = calls
             return f(*args, **kwargs)
         return wrapped
     return decorator
@@ -2416,7 +2425,7 @@ IMPORTANT — HOW TO ADDRESS THE USER (MANDATORY FOR ALL LANGUAGES):
 - Treat every user like a valued student or professional you deeply respect"""
 
 SYSTEM_PROMPTS = {
-    "general": """You are CodeBuddy, a friendly programming helper. You ONLY answer programming and coding-related questions.
+    "general": """You are Zanaks AI, the world's most advanced AI coding assistant. You ONLY answer programming and coding-related questions.
 
 SCOPE — WHAT YOU ANSWER:
 - Programming questions (Python, JavaScript, Java, C++, etc.)
@@ -2428,7 +2437,7 @@ SCOPE — WHAT YOU ANSWER:
 
 IF THE USER ASKS A NON-PROGRAMMING QUESTION:
 - Politely decline and redirect them to ask a coding question.
-- Example response: "I'm CodeBuddy — I can only help with programming and coding topics. Do you have a coding question I can help with?"
+- Example response: "I'm Zanaks AI — I can only help with programming and coding topics. Do you have a coding question I can help with?"
 - Do NOT answer general knowledge, math homework, personal advice, jokes, or any non-coding topic.
 
 RULES:
@@ -3180,11 +3189,21 @@ def delete_account():
         conn.execute("DELETE FROM users WHERE id=?", (current_user.id,))
         conn.execute("DELETE FROM user_stats WHERE user_id=?", (current_user.id,))
         conn.execute("DELETE FROM user_memory WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM mood_signals WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM code_dna WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM duck_sessions WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM changelogs WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM confidence_records WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM error_autopsies WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM naming_history WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM battle_entries WHERE user_id=?", (current_user.id,))
+        conn.execute("DELETE FROM battles WHERE creator_id=?", (current_user.id,))
 
         convo_ids = [row["id"] for row in conn.execute("SELECT id FROM conversations WHERE user_id=?", (current_user.id,)).fetchall()]
         if convo_ids:
             placeholders = ",".join("?" for _ in convo_ids)
             conn.execute(f"DELETE FROM messages WHERE conversation_id IN ({placeholders})", convo_ids)
+            conn.execute(f"DELETE FROM share_tokens WHERE conversation_id IN ({placeholders})", convo_ids)
         conn.execute("DELETE FROM conversations WHERE user_id=?", (current_user.id,))
         conn.execute("DELETE FROM bookmarks WHERE user_id=?", (current_user.id,))
         conn.execute("DELETE FROM focus_sessions WHERE user_id=?", (current_user.id,))
@@ -3217,12 +3236,14 @@ def dashboard():
     except Exception as e:
         app.logger.warning(f"Failed to update streak: {e}")
     conn = sqlite3.connect("codebuddy.db")
-    conn.row_factory = sqlite3.Row
-    chats = conn.execute(
-        "SELECT id,title,mode,updated_at,pinned FROM conversations WHERE user_id=? ORDER BY pinned DESC, id DESC",
-        (current_user.id,)
-    ).fetchall()
-    conn.close()
+    try:
+        conn.row_factory = sqlite3.Row
+        chats = conn.execute(
+            "SELECT id,title,mode,updated_at,pinned FROM conversations WHERE user_id=? ORDER BY pinned DESC, id DESC",
+            (current_user.id,)
+        ).fetchall()
+    finally:
+        conn.close()
     # Show onboarding once per login session using a session flag.
     # This works for ALL users (new and existing) — dismissed by clicking "GOT IT".
     show_onboarding = not session.get("onboarding_dismissed", False)
@@ -3342,10 +3363,12 @@ self.addEventListener('fetch', e => {
 @login_required
 def profile():
     conn = sqlite3.connect("codebuddy.db")
-    conn.row_factory = sqlite3.Row
-    user = conn.execute("SELECT * FROM users WHERE id=?", (current_user.id,)).fetchone()
-    stats = conn.execute("SELECT * FROM user_stats WHERE user_id=?", (current_user.id,)).fetchone()
-    conn.close()
+    try:
+        conn.row_factory = sqlite3.Row
+        user = conn.execute("SELECT * FROM users WHERE id=?", (current_user.id,)).fetchone()
+        stats = conn.execute("SELECT * FROM user_stats WHERE user_id=?", (current_user.id,)).fetchone()
+    finally:
+        conn.close()
     return render_template("profile.html", user=user, stats=stats, username=current_user.username)
 
 @app.route("/update_profile", methods=["POST"])
@@ -3418,9 +3441,11 @@ def set_memory_route():
 def clear_memory():
     """Clear all memory for the current user."""
     conn = sqlite3.connect("codebuddy.db")
-    conn.execute("DELETE FROM user_memory WHERE user_id=?", (current_user.id,))
-    conn.commit()
-    conn.close()
+    try:
+        conn.execute("DELETE FROM user_memory WHERE user_id=?", (current_user.id,))
+        conn.commit()
+    finally:
+        conn.close()
     return jsonify({"status": "cleared"})
 
 # ================= CHANGE 9: LEADERBOARD + STREAK CARD =================
@@ -3429,29 +3454,32 @@ def clear_memory():
 def leaderboard():
     """Public leaderboard — top 20 users by streak and total messages."""
     conn = sqlite3.connect("codebuddy.db")
-    conn.row_factory = sqlite3.Row
-    top_streak = conn.execute("""
-        SELECT u.username, u.avatar_color, s.streak_days, s.total_messages,
-               s.code_runs, s.debug_count
-        FROM user_stats s
-        JOIN users u ON s.user_id = u.id
-        ORDER BY s.streak_days DESC, s.total_messages DESC
-        LIMIT 20
-    """).fetchall()
-    conn.close()
+    try:
+        conn.row_factory = sqlite3.Row
+        top_streak = conn.execute("""
+            SELECT u.username, u.avatar_color, s.streak_days, s.total_messages,
+                   s.code_runs, s.debug_count
+            FROM user_stats s
+            JOIN users u ON s.user_id = u.id
+            ORDER BY s.streak_days DESC, s.total_messages DESC
+            LIMIT 20
+        """).fetchall()
+    finally:
+        conn.close()
     return render_template("leaderboard.html", users=top_streak)
 
 @app.route("/streak_card/<username>.svg")
 def streak_card(username):
     """Generate a shareable SVG streak card for a user."""
     conn = sqlite3.connect("codebuddy.db")
-    conn.row_factory = sqlite3.Row
-    user = conn.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone()
-    if not user:
+    try:
+        conn.row_factory = sqlite3.Row
+        user = conn.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone()
+        if not user:
+            return "User not found", 404
+        stats = conn.execute("SELECT * FROM user_stats WHERE user_id=?", (user["id"],)).fetchone()
+    finally:
         conn.close()
-        return "User not found", 404
-    stats = conn.execute("SELECT * FROM user_stats WHERE user_id=?", (user["id"],)).fetchone()
-    conn.close()
 
     streak = stats["streak_days"] if stats else 0
     messages = stats["total_messages"] if stats else 0
@@ -3743,9 +3771,36 @@ def run_code():
         app.logger.warning(f"AI simulation failed: {e}. Falling back to local execution.")
 
     # Local fallback logic if offline or AI call fails
+    is_hosted = bool(os.getenv("DATABASE_URL") or os.getenv("RENDER"))
+    allow_local_exec = os.getenv("ALLOW_LOCAL_SUBPROCESS_RUN", "false" if is_hosted else "true").lower() == "true"
+    if not allow_local_exec:
+        return jsonify({
+            "output": (
+                "⚠ Direct host-level execution is disabled on hosted environments for security. "
+                "Connect to the internet to let CodeBuddy simulate and predict the output of your code."
+            ),
+            "exit_code": -1,
+            "language": language
+        })
+
+    # Guard against hazardous system/file/network access patterns
+    dangerous_patterns = [
+        r"\bimport\s+(os|subprocess|sys|shutil|socket|pty|ctypes)\b",
+        r"\bfrom\s+(os|subprocess|sys|shutil|socket|pty|ctypes)\b",
+        r"\b(__import__|eval|exec|compile)\b",
+        r"\b(process\.env|child_process|require\(|fs\.)\b",
+        r"\b(Runtime\.getRuntime|ProcessBuilder)\b",
+    ]
+    for pattern in dangerous_patterns:
+        if re.search(pattern, code):
+            return jsonify({
+                "output": "⚠ Execution blocked: Potential security hazard detected in code submission.",
+                "exit_code": -1,
+                "language": language
+            })
+
     import subprocess
     import sys
-    import os
     if language == "python":
         try:
             proc = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=10)
@@ -3764,7 +3819,6 @@ def run_code():
             return jsonify({"output": f"⚠ Run failed: {str(e)}", "exit_code": -1, "language": language})
     elif language == "java":
         try:
-            import re
             match = re.search(r"public\s+class\s+(\w+)", code)
             class_name = match.group(1) if match else "Main"
             temp_dir = os.getcwd()
