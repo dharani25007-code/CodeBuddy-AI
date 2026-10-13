@@ -1,13 +1,15 @@
 import os
 try:
-    from PIL import Image, ImageDraw
+    from PIL import Image, ImageDraw  # type: ignore
     has_pil = True
 except ImportError:
+    Image = None  # type: ignore
+    ImageDraw = None  # type: ignore
     has_pil = False
 
 os.makedirs("static/icons", exist_ok=True)
 
-if has_pil:
+if has_pil and Image is not None and ImageDraw is not None:
     for size in (192, 512):
         img = Image.new("RGBA", (size, size), (6, 13, 26, 255))
         draw = ImageDraw.Draw(img)

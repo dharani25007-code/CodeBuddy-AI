@@ -11,6 +11,7 @@ import argparse
 import contextlib
 import importlib.util
 import random
+from typing import Any, cast
 import sqlite3
 import statistics
 import threading
@@ -51,9 +52,10 @@ class FakeResponse:
 
 def load_app_module():
     spec = importlib.util.spec_from_file_location("codebuddy_app", APP_PATH)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Unable to load module spec from {APP_PATH}")
     module = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
-    spec.loader.exec_module(module)
+    cast(Any, spec.loader).exec_module(module)
     return module
 
 
@@ -186,7 +188,7 @@ def execute_request(module, mode, base_url, endpoint):
         client = worker["client"]
         chat_id = worker["chat_id"]
         if endpoint == "chat":
-            response = client.post(
+            response: Any = client.post(
                 "/chat",
                 data={
                     "message": CHAT_MESSAGE,
@@ -200,7 +202,7 @@ def execute_request(module, mode, base_url, endpoint):
             body = response.get_data(as_text=True)
             status_code = response.status_code
         else:
-            response = client.post(
+            response: Any = client.post(
                 "/run_code",
                 json={"language": "python", "code": "print('benchmark')"},
             )

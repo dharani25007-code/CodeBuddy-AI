@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f1117,50:7C3AED,100:4ecdc4&height=200&section=header&text=CodeBuddy%20AI&fontSize=52&fontColor=ffffff&fontAlignY=40&desc=Tanglish%20AI%20Coding%20Assistant&descAlignY=60&descSize=18&animation=fadeIn"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f1117,50:7C3AED,100:00ffe0&height=200&section=header&text=Zanaks%20AI&fontSize=52&fontColor=ffffff&fontAlignY=40&desc=Next-Gen%20AI%20Coding%20Platform&descAlignY=60&descSize=18&animation=fadeIn"/>
 </div>
 
 <div align="center">
@@ -17,9 +17,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)](https://github.com/dharani25007-code/codebuddy/pulls)
 
-> ⚡ **25+ Features · 5 Themes · 20+ Languages · Ollama Local AI + Free Cloud Fallbacks · Live on Render**
-
-🌐 **[Live Demo → https://codebuddy-ai-nzea.onrender.com](https://codebuddy-ai-nzea.onrender.com)**
+> ⚡ **25+ Features · 5 Dynamic Themes · 20+ Languages · Ollama Local AI + Free Cloud Fallbacks**
 
 </div>
 
@@ -27,7 +25,7 @@
 
 ## 📌 Overview
 
-CodeBuddy is a full-stack AI-powered programming assistant with **25+ features** — including Tanglish (Tamil + English) voice coding, File Forge upload/edit/run, Video Analyzer, Code DNA fingerprinting, Rubber Duck+ Mode, and a **triple-provider AI architecture** (Ollama local GPU → Groq → OpenRouter). The app is deployed live on **Render** with a **Supabase PostgreSQL** database for permanent cloud storage, and also supports SQLite for local development with zero configuration.
+**Zanaks AI** is a next-generation full-stack AI-powered developer platform with **25+ features** — including multilingual voice coding, File Forge upload/edit/run, Video Analyzer, Code DNA fingerprinting, Rubber Duck+ Mode, and a **triple-provider AI architecture** (Ollama local GPU → Groq → OpenRouter). The platform features an ultra-responsive, dynamic 5-theme frontend engine (Gaming, Dark Pro, Warm, Professional, Minimal) and is deployed on **Render** with a **Supabase PostgreSQL** database for permanent cloud storage, and also supports SQLite for local development with zero configuration.
 
 ---
 
