@@ -52,8 +52,9 @@ def _connect_db(database=None, *args, **kwargs):
             global _pg_pool
             if _pg_pool is None:
                 try:
+                    maxconn = int(os.getenv("PG_POOL_MAXCONN", "20"))
                     _pg_pool = psycopg2.pool.ThreadedConnectionPool(
-                        minconn=1, maxconn=10,
+                        minconn=1, maxconn=maxconn,
                         dsn=DATABASE_URL,
                         connect_timeout=10,
                     )
@@ -61,16 +62,46 @@ def _connect_db(database=None, *args, **kwargs):
                     print(f"[DB] Pool creation failed: {_pe}")
                     _pg_pool = None
 
+            def _translate_sql(sql):
+                # Translate '?' to '%s' only when outside single-quoted string literals
+                parts = []
+                in_quote = False
+                i = 0
+                n = len(sql)
+                while i < n:
+                    ch = sql[i]
+                    if ch == "'":
+                        if in_quote and i + 1 < n and sql[i + 1] == "'":
+                            parts.append("''")
+                            i += 2
+                            continue
+                        in_quote = not in_quote
+                        parts.append(ch)
+                    elif ch == "?" and not in_quote:
+                        parts.append("%s")
+                    else:
+                        parts.append(ch)
+                    i += 1
+                translated = "".join(parts)
+                translated = translated.replace("INTEGER PRIMARY KEY AUTOINCREMENT", "SERIAL PRIMARY KEY")
+                translated = translated.replace("AUTOINCREMENT", "SERIAL")
+                translated = translated.replace("(datetime('now'))", "CURRENT_TIMESTAMP::text")
+                translated = translated.replace("datetime('now')", "CURRENT_TIMESTAMP::text")
+                return translated
+
             class PostgresCursorWrapper:
                 def __init__(self, cursor):
                     self._cursor = cursor
                     self._lastrowid = None
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc_val, exc_tb):
+                    self.close()
+
                 def execute(self, sql, parameters=None):
-                    sql = sql.replace("?", "%s")
-                    sql = sql.replace("INTEGER PRIMARY KEY AUTOINCREMENT", "SERIAL PRIMARY KEY")
-                    sql = sql.replace("AUTOINCREMENT", "SERIAL")
-                    sql = sql.replace("(datetime('now'))", "CURRENT_TIMESTAMP::text")
-                    sql = sql.replace("datetime('now')", "CURRENT_TIMESTAMP::text")
+                    sql = _translate_sql(sql)
 
                     # PostgreSQL handle PRAGMA
                     if sql.strip().upper().startswith("PRAGMA"):
@@ -82,7 +113,7 @@ def _connect_db(database=None, *args, **kwargs):
                             return self
 
                     is_insert = sql.strip().upper().startswith("INSERT INTO") and "COLLAB_ROOMS" not in sql.upper()
-                    if is_insert:
+                    if is_insert and "RETURNING" not in sql.upper():
                         sql = sql.rstrip('; \t\n\r') + " RETURNING id"
 
                     if parameters:
@@ -90,7 +121,7 @@ def _connect_db(database=None, *args, **kwargs):
                     else:
                         self._cursor.execute(sql)
 
-                    if is_insert:
+                    if is_insert and "RETURNING" in sql.upper():
                         try:
                             row = self._cursor.fetchone()
                             if row:
@@ -107,7 +138,7 @@ def _connect_db(database=None, *args, **kwargs):
                     return self._lastrowid
 
                 def executemany(self, sql, parameters):
-                    sql = sql.replace("?", "%s")
+                    sql = _translate_sql(sql)
                     self._cursor.executemany(sql, parameters)
                     return self
 
@@ -128,20 +159,36 @@ def _connect_db(database=None, *args, **kwargs):
                     self._conn = conn
                     self._pool = pool
                     self.row_factory = None
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc_val, exc_tb):
+                    if exc_type is not None:
+                        self.rollback()
+                    else:
+                        self.commit()
+                    self.close()
+
                 def cursor(self):
                     return PostgresCursorWrapper(self._conn.cursor(cursor_factory=psycopg2.extras.DictCursor))
+
                 def execute(self, sql, parameters=None):
                     cur = self.cursor()
                     cur.execute(sql, parameters)
                     return cur
+
                 def executemany(self, sql, parameters):
                     cur = self.cursor()
                     cur.executemany(sql, parameters)
                     return cur
+
                 def commit(self):
                     self._conn.commit()
+
                 def rollback(self):
                     self._conn.rollback()
+
                 def close(self):
                     if self._conn:
                         if self._pool:
