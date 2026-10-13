@@ -44,7 +44,7 @@
   const LANGS = {
     'en-US': {
       name: 'English', short: 'EN', flag: '🇺🇸',
-      greet: 'CodeBuddy Neural Voice ready. Say "Hey Buddy" to activate.',
+      greet: 'Zanaks AI Neural Voice ready. Say "Hey Zanaks" to activate.',
       listening: 'Listening...',
       processing: 'Processing your code query...',
       error: 'Voice recognition error. Please try again.',
@@ -60,6 +60,7 @@
         'stop speaking': () => CBVoice.stop(),
         'pause': () => CBVoice.pause(),
         'resume': () => CBVoice.resume(),
+        'hey zanaks': () => activateWakeWord(),
         'hey buddy': () => activateWakeWord(),
         'show memory': () => CBVoice.showMemory(),
         'open leaderboard': () => window.open('/leaderboard', '_blank'),
@@ -1191,7 +1192,7 @@ body:has(.sidebar.collapsed) #cbVoicePanel { left: 60px; }
     const _wLang = STATE.currentLang;
     const _wMsg = (LANGS[_wLang] && LANGS[_wLang].greet)
       ? LANGS[_wLang].greet
-      : 'CodeBuddy activated. What would you like to code?';
+      : 'Zanaks AI activated. What would you like to code?';
     speak(_wMsg, _wLang);
     setTranscript('🎯 Wake word detected — I\'m listening!', 'cmd');
     setTimeout(() => {
@@ -1204,7 +1205,7 @@ body:has(.sidebar.collapsed) #cbVoicePanel { left: 60px; }
   function triggerRun() {
     const runBtn = document.querySelector('.run-btn.run-active') || document.querySelector('.run-btn');
     if (runBtn) { runBtn.click(); speak('Running your code.'); }
-    else speak('No code block found to run. Please ask CodeBuddy to write some code first.');
+    else speak('No code block found to run. Please ask Zanaks AI to write some code first.');
   }
 
   function triggerDebug() {
@@ -1572,10 +1573,10 @@ body:has(.sidebar.collapsed) #cbVoicePanel { left: 60px; }
     },
     testVoice() {
       const msgs = {
-        'en-US': 'CodeBuddy Neural Voice is working. Ready to help with Python, JavaScript, and any programming language.',
-        'ta-IN': 'கோட்பட்டி தயார். Python, JavaScript மற்றும் எந்த programming language-லும் உதவ முடியும்.',
-        'ta-en': 'Dei CodeBuddy ready bro! Python yaandral enna, function yaandral enna, ellame solluven. Type pannu, autocomplete varum!',
-        'hi-IN': 'CodeBuddy Neural Voice sahi kaam kar raha hai. Python, JavaScript aur kisi bhi programming language mein help kar sakta hoon.',
+        'en-US': 'Zanaks AI Neural Voice is working. Ready to help with Python, JavaScript, and any programming language.',
+        'ta-IN': 'ஜனாக்ஸ் ஏஐ தயார். Python, JavaScript மற்றும் எந்த programming language-லும் உதவ முடியும்.',
+        'ta-en': 'Dei Zanaks ready bro! Python yaandral enna, function yaandral enna, ellame solluven. Type pannu, autocomplete varum!',
+        'hi-IN': 'Zanaks AI Neural Voice sahi kaam kar raha hai. Python, JavaScript aur kisi bhi programming language mein help kar sakta hoon.',
         'te-IN': 'కోడ్‌బడ్డీ సిద్ధంగా ఉంది. Python, JavaScript మరియు ఏ programming language లోనైనా సహాయపడగలను.',
         'kn-IN': 'ಕೋಡ್‌ಬಡ್ಡಿ ಸಿದ್ಧವಾಗಿದೆ. Python, JavaScript ಮತ್ತು ಯಾವುದೇ programming language ನಲ್ಲಿ ಸಹಾಯ ಮಾಡಬಲ್ಲೆ.',
         'ml-IN': 'കോഡ്ബഡ്ഡി തയ്യാർ. Python, JavaScript, ഏത് programming language ലും സഹായിക്കാം.',
@@ -1608,7 +1609,7 @@ body:has(.sidebar.collapsed) #cbVoicePanel { left: 60px; }
     // CHANGE 9: Share streak as SVG card
     shareStreak() {
       const username = document.querySelector('[data-username]')?.dataset?.username
-        || document.title.replace('CodeBuddy - ', '') || 'coder';
+        || document.title.replace('Zanaks AI - ', '').replace('CodeBuddy - ', '') || 'coder';
       const url = `/streak_card/${username}.svg`;
       window.open(url, '_blank');
       speak(`Opening your streak card for ${username}. Share it on social media!`);
@@ -1619,7 +1620,7 @@ body:has(.sidebar.collapsed) #cbVoicePanel { left: 60px; }
       if (STATE._deferredInstall) {
         STATE._deferredInstall.prompt();
         STATE._deferredInstall.userChoice.then(choice => {
-          if (choice.outcome === 'accepted') speak('CodeBuddy installed! You can now use it offline.');
+          if (choice.outcome === 'accepted') speak('Zanaks AI installed! You can now use it offline.');
           STATE._deferredInstall = null;
         });
       } else {
@@ -1656,7 +1657,7 @@ body:has(.sidebar.collapsed) #cbVoicePanel { left: 60px; }
       STATE._deferredInstall = e;
       // Show a subtle install hint in transcript
       setTimeout(() => {
-        setTranscript('📱 Install CodeBuddy as app — say "install app" or click ⊕', 'cmd');
+        setTranscript('📱 Install Zanaks AI as app — say "install app" or click ⊕', 'cmd');
       }, 3000);
     });
 
@@ -1669,7 +1670,7 @@ body:has(.sidebar.collapsed) #cbVoicePanel { left: 60px; }
       .catch(() => { });
 
     setTimeout(() => {
-      setTranscript('⚡ CodeBuddy Neural Voice Engine v4.0 ready — Click 🎤 or say "Hey Buddy"', 'cmd');
+      setTranscript('⚡ Zanaks AI Neural Voice Engine v4.0 ready — Click 🎤 or say "Hey Zanaks"', 'cmd');
     }, 800);
 
     // ── Check voice profile on load ─────────────────────────────────────────
