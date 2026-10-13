@@ -74,7 +74,7 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 
 from dotenv import load_dotenv
 from flask import (Flask, render_template, request, jsonify,
-                   Response, redirect, url_for, session, g)
+                   Response, redirect, url_for, session, g, send_from_directory)
 from flask_login import (LoginManager, login_user, login_required,
                          logout_user, UserMixin, current_user)
 from flask_bcrypt import Bcrypt
@@ -973,7 +973,7 @@ def _send_email_async(to_email, subject, body_html, body_text):
             smtp_sender = os.getenv("SMTP_SENDER") or os.getenv("SMTP_USERNAME") or "codebuddy.offical@gmail.com"
             # Extract plain email from "Name <email>" format
             sender_email = smtp_sender
-            sender_name = "CodeBuddy"
+            sender_name = "Zanaks AI"
             if "<" in smtp_sender and ">" in smtp_sender:
                 sender_name = smtp_sender.split("<")[0].strip()
                 sender_email = smtp_sender.split("<")[1].replace(">", "").strip()
@@ -1029,7 +1029,10 @@ def _send_email_async(to_email, subject, body_html, body_text):
         
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
-        msg["From"] = formataddr(("CodeBuddy", smtp_username))
+        sender_display_name = "Zanaks AI"
+        if smtp_sender and "<" in smtp_sender and ">" in smtp_sender:
+            sender_display_name = smtp_sender.split("<")[0].strip()
+        msg["From"] = formataddr((sender_display_name, smtp_username))
         msg["To"] = to_email
         msg["Reply-To"] = smtp_username
         msg["Date"] = formatdate(localtime=True)
@@ -1083,7 +1086,7 @@ def send_email(to_email, subject, body_html, body_text=""):
     thread.start()
 
 def send_welcome_email(to_email, username):
-    subject = "Welcome to CodeBuddy - Thank you for registering"
+    subject = "Welcome to Zanaks AI - Thank you for registering"
     
     # Generate the correct URL dynamically based on the current server host
     try:
@@ -1091,7 +1094,7 @@ def send_welcome_email(to_email, username):
         if "onrender.com" in login_url or (request and request.headers.get("X-Forwarded-Proto") == "https"):
             login_url = login_url.replace("http://", "https://")
     except Exception:
-        login_url = "https://codebuddy-0slh.onrender.com/login"
+        login_url = "https://zanaks-ai.onrender.com/login"
 
     body_html = f"""
     <!DOCTYPE html>
@@ -1233,8 +1236,8 @@ def send_welcome_email(to_email, username):
         <div class="wrapper">
             <div class="card">
                 <div class="logo-section">
-                    <div class="logo">CODEBUDDY</div>
-                    <div class="logo-sub">AI-POWERED CODING COMPANION</div>
+                    <div class="logo">ZANAKS AI</div>
+                    <div class="logo-sub">NEXT-GEN AI CODING ASSISTANT</div>
                 </div>
 
                 <div class="divider"></div>
@@ -1244,16 +1247,16 @@ def send_welcome_email(to_email, username):
                 </div>
 
                 <div class="thank-you">
-                    <p>Thank you for registering on <strong>CodeBuddy</strong>! We're excited to have you on board.</p>
+                    <p>Thank you for registering on <strong>Zanaks AI</strong>! We're excited to have you on board.</p>
                     <p>Your account has been successfully created and is ready to use. You can now log in and start exploring all the features we've built to supercharge your coding journey.</p>
                 </div>
 
                 <div class="features-title">What You Can Do</div>
 
                 <div class="feature-item">
-                    <span class="feature-icon">🤖</span>
+                    <span class="feature-icon">⚡</span>
                     <div class="feature-text">
-                        <strong>AI Chat Assistant</strong> — Ask coding questions, debug errors, and get instant help from your AI programming buddy.
+                        <strong>AI Chat Assistant</strong> — Ask coding questions, debug errors, and get instant help from your Zanaks AI assistant.
                     </div>
                 </div>
 
@@ -1284,10 +1287,10 @@ def send_welcome_email(to_email, username):
 
                 <div class="footer">
                     <div class="footer-text">
-                        This email was sent because you registered on CodeBuddy.<br>
+                        This email was sent because you registered on Zanaks AI.<br>
                         If you didn't create this account, you can safely ignore this email.
                     </div>
-                    <div class="footer-brand">CODEBUDDY · SECURE · AUTOMATED</div>
+                    <div class="footer-brand">ZANAKS AI · SECURE · AUTOMATED</div>
                 </div>
             </div>
         </div>
@@ -1296,7 +1299,7 @@ def send_welcome_email(to_email, username):
     """
     body_text = (
         f"Welcome, {username}!\n\n"
-        f"Thank you for registering on CodeBuddy! We are excited to have you on board.\n\n"
+        f"Thank you for registering on Zanaks AI! We are excited to have you on board.\n\n"
         f"Your account has been successfully created and is ready to use.\n\n"
         f"What you can do:\n"
         f"  - AI Chat Assistant: Ask coding questions and get instant help\n"
@@ -1305,12 +1308,12 @@ def send_welcome_email(to_email, username):
         f"  - Voice Clone: Create a custom AI voice\n\n"
         f"Start coding now: {login_url}\n\n"
         f"Best regards,\n"
-        f"The CodeBuddy Team"
+        f"The Zanaks AI Team"
     )
     send_email(to_email, subject, body_html, body_text)
 
 def send_reset_email(to_email, username, reset_url):
-    subject = "Reset your CodeBuddy password"
+    subject = "Reset your Zanaks AI password"
     body_html = f"""
     <!DOCTYPE html>
     <html>
@@ -1376,10 +1379,10 @@ def send_reset_email(to_email, username, reset_url):
     </head>
     <body>
         <div class="card">
-            <div class="logo">CODEBUDDY</div>
+            <div class="logo">ZANAKS AI</div>
             <div class="text">
                 <p>Hello {username},</p>
-                <p>A password reset request was initialized for your CodeBuddy credentials. Click the link below to configure a new access key. This link is valid for 1 hour.</p>
+                <p>A password reset request was initialized for your Zanaks AI credentials. Click the link below to configure a new access key. This link is valid for 1 hour.</p>
             </div>
             <div class="btn-wrap">
                 <a href="{reset_url}" class="btn">RESET ACCESS KEY</a>
@@ -1388,17 +1391,17 @@ def send_reset_email(to_email, username, reset_url):
                 <p>If you did not request this, you can safely ignore this email.</p>
             </div>
             <div class="footer">
-                CODEBUDDY · PASSWORD SERVICES · SECURE TRANSMISSION
+                ZANAKS AI · PASSWORD SERVICES · SECURE TRANSMISSION
             </div>
         </div>
     </body>
     </html>
     """
-    body_text = f"Hello {username},\n\nA password reset request was initialized for your CodeBuddy credentials. Use the link below to configure a new access key:\n\n{reset_url}\n\nThis link is valid for 1 hour."
+    body_text = f"Hello {username},\n\nA password reset request was initialized for your Zanaks AI credentials. Use the link below to configure a new access key:\n\n{reset_url}\n\nThis link is valid for 1 hour.\n\nBest regards,\nThe Zanaks AI Team"
     send_email(to_email, subject, body_html, body_text)
 
 def send_delete_otp_email(to_email, username, otp):
-    subject = "Your CodeBuddy verification code"
+    subject = "Your Zanaks AI verification code"
     body_html = f"""
     <!DOCTYPE html>
     <html>
@@ -1460,10 +1463,10 @@ def send_delete_otp_email(to_email, username, otp):
     </head>
     <body>
         <div class="card">
-            <div class="logo">CODEBUDDY WARNING</div>
+            <div class="logo">ZANAKS AI WARNING</div>
             <div class="text">
                 <p>Hello {username},</p>
-                <p>You requested to permanently delete your CodeBuddy account. This action is irreversible and will erase all data, chats, and records associated with this account.</p>
+                <p>You requested to permanently delete your Zanaks AI account. This action is irreversible and will erase all data, chats, and records associated with this account.</p>
                 <p>Use the following OTP to confirm deletion. This code is valid for 5 minutes:</p>
             </div>
             <div class="otp-wrap">
@@ -1473,13 +1476,13 @@ def send_delete_otp_email(to_email, username, otp):
                 <p>If you did not request this, please change your password immediately.</p>
             </div>
             <div class="footer">
-                CODEBUDDY · SECURITY WARNING · SECURE TRANSMISSION
+                ZANAKS AI · SECURITY WARNING · SECURE TRANSMISSION
             </div>
         </div>
     </body>
     </html>
     """
-    body_text = f"Hello {username},\n\nYou requested to permanently delete your CodeBuddy account. This action is irreversible.\n\nYour 6-digit deletion OTP is: {otp}\n\nValid for 5 minutes."
+    body_text = f"Hello {username},\n\nYou requested to permanently delete your Zanaks AI account. This action is irreversible.\n\nYour 6-digit deletion OTP is: {otp}\n\nValid for 5 minutes."
     send_email(to_email, subject, body_html, body_text)
 
 
@@ -3256,20 +3259,28 @@ def onboarding_dismiss():
     session["onboarding_dismissed"] = True
     return jsonify({"ok": True})
 
-# ================= CHANGE 7: PWA ROUTES =================
+# ================= FAVICON & PWA ROUTES =================
+
+@app.route("/favicon.ico")
+def favicon():
+    fav_ico = os.path.join(app.root_path, "static", "favicon.ico")
+    if os.path.exists(fav_ico):
+        return send_from_directory(os.path.join(app.root_path, "static"), "favicon.ico", mimetype="image/x-icon")
+    return send_from_directory(os.path.join(app.root_path, "static"), "favicon.svg", mimetype="image/svg+xml")
 
 @app.route("/manifest.json")
 def pwa_manifest():
     manifest = {
-        "name": "CodeBuddy AI",
-        "short_name": "CodeBuddy",
-        "description": "World's first Tanglish programming voice AI assistant",
+        "name": "Zanaks AI",
+        "short_name": "Zanaks",
+        "description": "Next-Gen AI Programming Assistant",
         "start_url": "/",
         "display": "standalone",
         "background_color": "#020408",
         "theme_color": "#00ffe0",
         "orientation": "portrait-primary",
         "icons": [
+            {"src": "/static/favicon.svg", "sizes": "any", "type": "image/svg+xml"},
             {"src": "/static/icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
             {"src": "/static/icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
             {"src": "/static/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
