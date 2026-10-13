@@ -28,23 +28,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#00ffe0">
-  <title>CodeBuddy – AI Coding Assistant | Chat, Code & Learn Together</title>
+  <title>Zanaks AI – Next-Gen AI Coding Assistant | Chat, Code & Learn Together</title>
 
   <!-- SEO Meta Tags -->
   <meta name="description"
-    content="CodeBuddy AI coding assistant — chat with AI, debug code, collaborate in real-time, run code in 30+ languages, and climb the leaderboard. Free for all developers and students.">
+    content="Zanaks AI coding assistant — chat with AI, debug code, collaborate in real-time, run code in 30+ languages, and climb the leaderboard. Free for all developers and students.">
   <meta name="keywords"
-    content="CodeBuddy, AI coding tool, AI study tool, AI assistant, programming help, code collaboration, learn to code, AI tutor, coding platform, free coding tool">
+    content="Zanaks AI, AI coding tool, AI study tool, AI assistant, programming help, code collaboration, learn to code, AI tutor, coding platform, free coding tool">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://codebuddy.onrender.com/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://codebuddy.onrender.com/">
-  <meta property="og:title" content="CodeBuddy – AI Coding Assistant & Study Tool">
+  <meta property="og:title" content="Zanaks AI – Next-Gen AI Coding Assistant & Study Tool">
   <meta property="og:description"
     content="Your AI-powered companion for coding, debugging, real-time collaboration, and learning. Free for everyone.">
-  <meta property="og:site_name" content="CodeBuddy">
+  <meta property="og:site_name" content="Zanaks AI">
   <script>
     /* Pyodide — runs Python in browser when Piston server unreachable */
     window._pyReady = false; window._pyLoading = false; window._pyCBs = [];
@@ -496,6 +496,20 @@
       color: var(--plasma);
       text-shadow: 0 0 8px rgba(0, 255, 224, 0.35);
       line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo-ai-badge {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--plasma), var(--nova));
+      color: #030712;
+      letter-spacing: 1px;
+      box-shadow: 0 0 8px rgba(0, 255, 224, 0.4);
     }
 
     .new-chat-btn {
@@ -2079,7 +2093,7 @@
     }
 
     .msg-row.bot .bubble-forge::before {
-      content: 'CODEBUDDY·AI';
+      content: 'ZANAKS·AI';
       display: block;
       font-family: var(--display);
       font-size: 10.5px;
@@ -6486,34 +6500,45 @@
     <div class="sidebar-body">
       <div class="logo-area">
         <div class="logo-hex">
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="logoGradSidebar" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="var(--plasma)" />
                 <stop offset="100%" stop-color="var(--nova)" />
               </linearGradient>
+              <linearGradient id="logoGradReverse" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="var(--nova)" />
+                <stop offset="100%" stop-color="var(--plasma)" />
+              </linearGradient>
+              <linearGradient id="bevelLight" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75" />
+                <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0" />
+              </linearGradient>
             </defs>
-            <polygon points="22,3 40,13 40,31 22,41 4,31 4,13" stroke="url(#logoGradSidebar)" stroke-width="1.2"
+            <!-- Outer Chamfered Hex Shield -->
+            <polygon points="26,2 48,14 48,38 26,50 4,38 4,14" stroke="url(#logoGradSidebar)" stroke-width="1.6"
               fill="var(--logo-bg-outer)" />
-            <!-- Robot Head -->
-            <rect x="11" y="17" width="22" height="16" rx="4" stroke="url(#logoGradSidebar)" stroke-width="1.6"
-              fill="var(--logo-bg-inner)" />
-            <!-- Antenna -->
-            <path d="M 22 17 L 22 12" stroke="url(#logoGradSidebar)" stroke-width="1.6" stroke-linecap="round" />
-            <!-- Antenna Spark -->
-            <circle cx="22" cy="9.5" r="2.8" fill="var(--plasma)" />
-            <!-- Bracket Eyes -->
-            <path d="M 17 22 L 14 25 L 17 28" stroke="var(--plasma)" stroke-width="1.6" stroke-linecap="round"
-              stroke-linejoin="round" />
-            <path d="M 27 22 L 30 25 L 27 28" stroke="var(--plasma)" stroke-width="1.6" stroke-linecap="round"
-              stroke-linejoin="round" />
-            <!-- Smile Mouth -->
-            <path d="M 19 30 Q 22 32 25 30" stroke="var(--nova)" stroke-width="1.4" stroke-linecap="round"
-              fill="none" />
+            <!-- Inner Concentric Orbit Track -->
+            <polygon points="26,6 44,16 44,36 26,46 8,36 8,16" stroke="rgba(255,255,255,0.1)" stroke-width="0.8" stroke-dasharray="4 2" fill="none" />
+            <!-- Code Caliper Left < -->
+            <path d="M 14 22 L 10 26 L 14 30" stroke="var(--plasma)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- Code Caliper Right > -->
+            <path d="M 38 22 L 42 26 L 38 30" stroke="var(--nova)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- 3D Beveled Z Core -->
+            <polygon points="17,16 35,16 31,21 21,21" fill="url(#logoGradSidebar)" />
+            <polygon points="17,16 35,16 33,18 19,18" fill="url(#bevelLight)" />
+            <polygon points="35,16 22,34 18,34 29,21" fill="url(#logoGradSidebar)" />
+            <polygon points="31,21 24,30 22,34 18,34 26,23" fill="url(#logoGradReverse)" opacity="0.85" />
+            <line x1="32" y1="18" x2="20" y2="34" stroke="#ffffff" stroke-width="1" stroke-linecap="round" />
+            <polygon points="21,31 35,31 35,36 17,36" fill="url(#logoGradReverse)" />
+            <polygon points="21,31 35,31 35,33 22,33" fill="url(#bevelLight)" opacity="0.6" />
+            <!-- Central Quantum Diamond Reactor -->
+            <polygon points="26,23 29,26 26,29 23,26" fill="#ffffff" />
+            <circle cx="26" cy="26" r="1.2" fill="var(--plasma)" />
           </svg>
         </div>
         <div>
-          <div class="logo-name">CODEBUDDY</div>
+          <div class="logo-name">ZANAKS <span class="logo-ai-badge">AI</span></div>
         </div>
       </div>
       <button class="new-chat-btn" onclick="newChat()">
@@ -6569,7 +6594,7 @@
         <div class="hud-badge">
           <div class="pulse"></div><span id="modeLabel">GENERAL</span>
         </div>
-        <div class="welcome-forge"><span>CODEBUDDY /</span><em>{{ username }}</em></div>
+        <div class="welcome-forge"><span>ZANAKS AI /</span><em>{{ username }}</em></div>
         <!-- v4: Model indicator -->
 
       </div>
@@ -6812,7 +6837,7 @@
             <div style="text-align:center;margin-bottom:24px">
               <div
                 style="font-family:var(--display);font-size:22px;font-weight:900;letter-spacing:4px;color:var(--plasma);margin-bottom:8px">
-                👋 WELCOME TO CODEBUDDY</div>
+                👋 WELCOME TO ZANAKS AI</div>
               <div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:1.7">Hi <strong
                   style="color:#c084fc">{{ username }}</strong> — here's everything you can do. Click any card to try it
                 now.</div>
@@ -6916,7 +6941,7 @@
                 <div class="ob-num">04</div>
                 <div class="ob-body">
                   <div class="ob-title">▶ Run Code Instantly</div>
-                  <div class="ob-desc">Ask CodeBuddy to write code — every code block has a <strong
+                  <div class="ob-desc">Ask Zanaks AI to write code — every code block has a <strong
                       style="color:#00ffe0">▶ RUN</strong> button. Runs Python, JavaScript, C++, Java and 40+ languages
                     directly in your browser. No install needed.</div>
                   <div class="ob-chips">
@@ -6974,7 +6999,7 @@
                 <div class="ob-body">
                   <div class="ob-title">🌍 20 Languages — Ask in Your Language</div>
                   <div class="ob-desc">Use the language selector (top bar) to switch. Ask questions in Tamil, Hindi,
-                    Telugu, Kannada, Malayalam, Bengali and more — CodeBuddy answers in the same language.</div>
+                    Telugu, Kannada, Malayalam, Bengali and more — Zanaks AI answers in the same language.</div>
                   <div class="ob-chips">
                     <span class="ob-chip"
                       onclick="event.stopPropagation();quickAsk('Python-இல் for loop எப்படி பயன்படுத்துவது?')">தமிழில்
@@ -7133,7 +7158,7 @@
                 style="background:rgba(0,255,224,0.06);border:1px solid rgba(0,255,224,0.2);color:#00ffe0;font-family:var(--display);font-size:9px;font-weight:700;letter-spacing:2px;padding:10px 28px;border-radius:6px;cursor:pointer;transition:all 0.2s">
                 ✓ GOT IT — START CODING
               </button>
-              <div style="font-family:var(--mono);font-size:9px;color:rgba(226,244,255,0.15);margin-top:10px">CodeBuddy
+              <div style="font-family:var(--mono);font-size:9px;color:rgba(226,244,255,0.15);margin-top:10px">Zanaks AI
                 v8.0 · 12 world-first features · 20 languages</div>
             </div>
           </div>
@@ -7141,28 +7166,44 @@
           {% else %}
           <!-- ══════════════ RETURNING USER: quick topic chips ══════════════ -->
           <div class="empty-logo-static">
-            <svg viewBox="0 0 44 44" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 52 52" width="84" height="84" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="logoGradEmpty" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="var(--plasma)" />
                   <stop offset="100%" stop-color="var(--nova)" />
                 </linearGradient>
+                <linearGradient id="logoGradEmptyRev" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="var(--nova)" />
+                  <stop offset="100%" stop-color="var(--plasma)" />
+                </linearGradient>
+                <linearGradient id="bevelLightEmpty" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8" />
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0" />
+                </linearGradient>
               </defs>
-              <polygon points="22,3 40,13 40,31 22,41 4,31 4,13" stroke="url(#logoGradEmpty)" stroke-width="1.2"
+              <!-- Outer Chamfered Hex Shield -->
+              <polygon points="26,2 48,14 48,38 26,50 4,38 4,14" stroke="url(#logoGradEmpty)" stroke-width="1.8"
                 fill="var(--logo-bg-outer)" />
-              <rect x="11" y="17" width="22" height="16" rx="4" stroke="url(#logoGradEmpty)" stroke-width="1.6"
-                fill="var(--logo-bg-inner)" />
-              <path d="M 22 17 L 22 12" stroke="url(#logoGradEmpty)" stroke-width="1.6" stroke-linecap="round" />
-              <circle cx="22" cy="9.5" r="2.8" fill="var(--plasma)" />
-              <path d="M 17 22 L 14 25 L 17 28" stroke="var(--plasma)" stroke-width="1.6" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M 27 22 L 30 25 L 27 28" stroke="var(--plasma)" stroke-width="1.6" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M 19 30 Q 22 32 25 30" stroke="var(--nova)" stroke-width="1.4" stroke-linecap="round"
-                fill="none" />
+              <!-- Inner Concentric Orbit Track -->
+              <polygon points="26,6 44,16 44,36 26,46 8,36 8,16" stroke="rgba(255,255,255,0.12)" stroke-width="0.8" stroke-dasharray="4 2" fill="none" />
+              <!-- Code Caliper Left < -->
+              <path d="M 14 22 L 10 26 L 14 30" stroke="var(--plasma)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <!-- Code Caliper Right > -->
+              <path d="M 38 22 L 42 26 L 38 30" stroke="var(--nova)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <!-- 3D Beveled Z Core -->
+              <polygon points="17,16 35,16 31,21 21,21" fill="url(#logoGradEmpty)" />
+              <polygon points="17,16 35,16 33,18 19,18" fill="url(#bevelLightEmpty)" />
+              <polygon points="35,16 22,34 18,34 29,21" fill="url(#logoGradEmpty)" />
+              <polygon points="31,21 24,30 22,34 18,34 26,23" fill="url(#logoGradEmptyRev)" opacity="0.85" />
+              <line x1="32" y1="18" x2="20" y2="34" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" />
+              <polygon points="21,31 35,31 35,36 17,36" fill="url(#logoGradEmptyRev)" />
+              <polygon points="21,31 35,31 35,33 22,33" fill="url(#bevelLightEmpty)" opacity="0.6" />
+              <!-- Central Quantum Diamond Reactor -->
+              <polygon points="26,23 29,26 26,29 23,26" fill="#ffffff" />
+              <circle cx="26" cy="26" r="1.5" fill="var(--plasma)" />
             </svg>
           </div>
-          <div class="empty-title">CODEBUDDY</div>
+          <div class="empty-title">ZANAKS <span class="logo-ai-badge" style="font-size:12px;vertical-align:middle;">AI</span></div>
           <div class="empty-sub">Select a session or initialize a new one.<br>The forge awaits your query.</div>
           <div class="quick-grid">
             <div class="qchip" onclick="quickAsk('Explain async/await in JavaScript')">→ Async / Await JS</div>
@@ -7520,7 +7561,7 @@
           <div style="font-family:var(--mono);font-size:11px;color:rgba(226,244,255,0.5);line-height:1.7;margin-bottom:10px">${safeOut.replace(/\n/g, '<br>')}</div>
           <button onclick="askAICode(this)" data-code="${code.replace(/"/g, '&quot;').replace(/\n/g, '\\n').slice(0, 2000)}" data-lang="${displayLang}"
             style="padding:7px 14px;background:rgba(0,255,224,0.07);border:1px solid rgba(0,255,224,0.28);color:#00ffe0;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:2px">
-            💬 ASK CODEBUDDY TO TRACE THIS
+            💬 ASK ZANAKS AI TO TRACE THIS
           </button>
         </div>`;
                 return;
@@ -7566,7 +7607,7 @@
           return `<span class="con-info">${esc(line)}</span>`;
         }).join('\n');
         const safeRaw = raw.replace(/"/g, '&quot;');
-        content.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:rgba(0,255,224,0.03);border-bottom:1px solid rgba(0,255,224,0.07)"><span style="font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;color:${exitOk ? 'var(--plasma)' : '#ff6b2b'}">${exitOk ? '✅ SUCCESS' : '❌ ERROR'} · ${lang.toUpperCase()}</span><button class="code-btn" onclick="navigator.clipboard.writeText(this.dataset.raw)" data-raw="${safeRaw}" style="font-size:11px">COPY OUTPUT</button></div><div class="run-console">${rendered}</div>${!exitOk ? `<div style="padding:8px 14px;background:rgba(255,107,43,0.04);border-top:1px solid rgba(255,107,43,0.1);font-family:var(--mono);font-size:10px;color:rgba(226,244,255,0.45)">💡 Switch to <strong style="color:var(--plasma)">🐛 DEBUG mode</strong> and paste your code — CodeBuddy will find and fix every bug.</div>` : ''}`;
+        content.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:rgba(0,255,224,0.03);border-bottom:1px solid rgba(0,255,224,0.07)"><span style="font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;color:${exitOk ? 'var(--plasma)' : '#ff6b2b'}">${exitOk ? '✅ SUCCESS' : '❌ ERROR'} · ${lang.toUpperCase()}</span><button class="code-btn" onclick="navigator.clipboard.writeText(this.dataset.raw)" data-raw="${safeRaw}" style="font-size:11px">COPY OUTPUT</button></div><div class="run-console">${rendered}</div>${!exitOk ? `<div style="padding:8px 14px;background:rgba(255,107,43,0.04);border-top:1px solid rgba(255,107,43,0.1);font-family:var(--mono);font-size:10px;color:rgba(226,244,255,0.45)">💡 Switch to <strong style="color:var(--plasma)">🐛 DEBUG mode</strong> and paste your code — Zanaks AI will find and fix every bug.</div>` : ''}`;
         btn.classList.remove('running'); btn.classList.add('run-active'); btn.textContent = '■ CLOSE';
       }
 
@@ -7853,18 +7894,28 @@
           if (emp) {
             emp.innerHTML = `
             <div class="empty-logo-static">
-              <svg viewBox="0 0 44 44" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs><linearGradient id="logoGradEmpty2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--plasma)"/><stop offset="100%" stop-color="var(--nova)"/></linearGradient></defs>
-                <polygon points="22,3 40,13 40,31 22,41 4,31 4,13" stroke="url(#logoGradEmpty2)" stroke-width="1.2" fill="var(--logo-bg-outer)"/>
-                <rect x="11" y="17" width="22" height="16" rx="4" stroke="url(#logoGradEmpty2)" stroke-width="1.6" fill="var(--logo-bg-inner)"/>
-                <path d="M 22 17 L 22 12" stroke="url(#logoGradEmpty2)" stroke-width="1.6" stroke-linecap="round"/>
-                <circle cx="22" cy="9.5" r="2.8" fill="var(--plasma)"/>
-                <path d="M 17 22 L 14 25 L 17 28" stroke="var(--plasma)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 27 22 L 30 25 L 27 28" stroke="var(--plasma)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 19 30 Q 22 32 25 30" stroke="var(--nova)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+              <svg viewBox="0 0 52 52" width="84" height="84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="logoGradEmpty2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--plasma)"/><stop offset="100%" stop-color="var(--nova)"/></linearGradient>
+                  <linearGradient id="logoGradEmpty2Rev" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="var(--nova)"/><stop offset="100%" stop-color="var(--plasma)"/></linearGradient>
+                  <linearGradient id="bevelLightEmpty2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/></linearGradient>
+                </defs>
+                <polygon points="26,2 48,14 48,38 26,50 4,38 4,14" stroke="url(#logoGradEmpty2)" stroke-width="1.8" fill="var(--logo-bg-outer)"/>
+                <polygon points="26,6 44,16 44,36 26,46 8,36 8,16" stroke="rgba(255,255,255,0.12)" stroke-width="0.8" stroke-dasharray="4 2" fill="none"/>
+                <path d="M 14 22 L 10 26 L 14 30" stroke="var(--plasma)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M 38 22 L 42 26 L 38 30" stroke="var(--nova)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polygon points="17,16 35,16 31,21 21,21" fill="url(#logoGradEmpty2)"/>
+                <polygon points="17,16 35,16 33,18 19,18" fill="url(#bevelLightEmpty2)"/>
+                <polygon points="35,16 22,34 18,34 29,21" fill="url(#logoGradEmpty2)"/>
+                <polygon points="31,21 24,30 22,34 18,34 26,23" fill="url(#logoGradEmpty2Rev)" opacity="0.85"/>
+                <line x1="32" y1="18" x2="20" y2="34" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+                <polygon points="21,31 35,31 35,36 17,36" fill="url(#logoGradEmpty2Rev)"/>
+                <polygon points="21,31 35,31 35,33 22,33" fill="url(#bevelLightEmpty2)" opacity="0.6"/>
+                <polygon points="26,23 29,26 26,29 23,26" fill="#ffffff"/>
+                <circle cx="26" cy="26" r="1.5" fill="var(--plasma)"/>
               </svg>
             </div>
-            <div class="empty-title">CODEBUDDY</div>
+            <div class="empty-title">ZANAKS <span class="logo-ai-badge" style="font-size:12px;vertical-align:middle;">AI</span></div>
             <div class="empty-sub">The forge awaits your query.</div>
             <div class="quick-grid">
               <div class="qchip" onclick="quickAsk('Explain async/await in JavaScript')">→ Async / Await JS</div>
@@ -7897,7 +7948,7 @@
           <div id="onboardGuide" style="width:100%;max-width:700px;margin:0 auto;padding:24px 16px 40px">
             <div style="text-align:center;margin-bottom:24px">
               <div style="font-family:var(--display);font-size:22px;font-weight:900;letter-spacing:4px;color:var(--plasma);margin-bottom:8px">📖 USER GUIDE</div>
-              <div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:1.7">Here's everything you can do with CodeBuddy. Click any card to try it now.</div>
+              <div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:1.7">Here's everything you can do with Zanaks AI. Click any card to try it now.</div>
             </div>
 
             <div class="ob-section-label">── CORE FEATURES</div>
@@ -8387,7 +8438,7 @@
               sessionStorage.clear();
               localStorage.clear();
               document.getElementById('deleteAccountModal').remove();
-              alert('Your CodeBuddy account has been permanently deleted.');
+              alert('Your Zanaks AI account has been permanently deleted.');
               window.location.href = '/register';
             } else {
               errDiv.textContent = data.error || 'Failed to delete account.';
@@ -8932,7 +8983,7 @@ Please evaluate this answer out of 10. Start your response with "SCORE: X/10" th
       function ivExportReport() {
         const valid = IV.scores.filter(s => !s.skipped);
         const avg = valid.length ? valid.reduce((a, s) => a + s.score, 0) / valid.length : 0;
-        const text = `CODEBUDDY INTERVIEW REPORT
+        const text = `ZANAKS AI INTERVIEW REPORT
 =========================
 Date: ${new Date().toLocaleString()}
 Role: ${IV.config.role}
@@ -8950,7 +9001,7 @@ Hints used: ${IV.hintCount} | Skipped: ${IV.skipCount} | Best streak: ${IV.maxSt
         const blob = new Blob([text], { type: 'text/plain' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = 'codebuddy_interview_report.txt';
+        a.download = 'zanaks_ai_interview_report.txt';
         a.click();
       }
 
@@ -9426,7 +9477,7 @@ Hints used: ${IV.hintCount} | Skipped: ${IV.skipCount} | Best streak: ${IV.maxSt
         /* ── download ── */
         function download() {
           const text = document.getElementById('fp-editor').value;
-          const name = _file?.name || 'codebuddy_edit.txt';
+          const name = _file?.name || 'zanaks_edit.txt';
           const a = document.createElement('a');
           a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
           a.download = name;
@@ -9852,7 +9903,7 @@ Hints used: ${IV.hintCount} | Skipped: ${IV.skipCount} | Best streak: ${IV.maxSt
           const mem = d.memory || {};
           const keys = Object.keys(mem);
           if (!keys.length) {
-            body.innerHTML = '<div style="color:var(--text-3);font-family:var(--display);font-size:11px;letter-spacing:2px;padding:8px 0;">NO MEMORIES YET<br><br><span style="font-size:11px;font-weight:400;letter-spacing:1px;color:rgba(226,244,255,0.2)">CodeBuddy will auto-remember your language, experience level, and current projects as you chat.</span></div>';
+            body.innerHTML = '<div style="color:var(--text-3);font-family:var(--display);font-size:11px;letter-spacing:2px;padding:8px 0;">NO MEMORIES YET<br><br><span style="font-size:11px;font-weight:400;letter-spacing:1px;color:rgba(226,244,255,0.2)">Zanaks AI will auto-remember your language, experience level, and current projects as you chat.</span></div>';
             return;
           }
           const icons = { preferred_language: '🌐', experience_level: '🎓', current_project: '💻', name: '👤' };
@@ -10597,7 +10648,7 @@ Hints used: ${IV.hintCount} | Skipped: ${IV.skipCount} | Best streak: ${IV.maxSt
           badge.className = '';
           badge.textContent = '';
 
-          const prompt = `You are CodeBuddy, a programming assistant. A user has shared this URL:
+          const prompt = `You are Zanaks AI, a programming assistant. A user has shared this URL:
 
 ${url}
 
@@ -12060,7 +12111,7 @@ def find_max(arr):
             <div class="hub-feature-meta">
               <div class="hub-feature-label">WORLD-FIRST</div>
               <div class="hub-feature-title">CODE MOOD ENGINE</div>
-              <div class="hub-feature-desc">CodeBuddy silently detects your emotional state from your messages —
+              <div class="hub-feature-desc">Zanaks AI silently detects your emotional state from your messages —
                 frustrated, confused, confident — and automatically adapts tone and depth. See your mood history below.
               </div>
             </div>
@@ -12187,7 +12238,7 @@ def find_max(arr):
             <div class="hub-feature-meta">
               <div class="hub-feature-label">WORLD-FIRST</div>
               <div class="hub-feature-title">RUBBER DUCK DEBUG MODE</div>
-              <div class="hub-feature-desc">When active, CodeBuddy NEVER gives answers — only asks Socratic questions to
+              <div class="hub-feature-desc">When active, Zanaks AI NEVER gives answers — only asks Socratic questions to
                 guide you to find the bug yourself. Auto-expires after 30 min of silence.</div>
             </div>
           </div>
@@ -13087,7 +13138,7 @@ def find_max(arr):
               </div>
             </div>
             <div style="font-family:var(--mono);font-size:10.5px;color:var(--text-3)">
-              💡 CodeBuddy auto-detects your mood and adapts tone — warm when frustrated, simplified when confused, deeper when confident.
+              💡 Zanaks AI auto-detects your mood and adapts tone — warm when frustrated, simplified when confused, deeper when confident.
             </div>
           </div>`;
             const recent = (d.recent || []).slice(0, 20);
@@ -13366,7 +13417,7 @@ def find_max(arr):
             label.style.color = 'var(--plasma)';
             card.style.borderColor = 'rgba(0,255,224,0.4)';
             card.style.background = 'rgba(0,255,224,0.04)';
-            desc.innerHTML = 'CodeBuddy will <strong style="color:rgba(226,244,255,0.8)">only ask questions</strong> — no solutions until you stop.<br>' + (d.started_at ? `<span style="opacity:0.6">Started: ${d.started_at.slice(11, 16)}</span>` : '');
+            desc.innerHTML = 'Zanaks AI will <strong style="color:rgba(226,244,255,0.8)">only ask questions</strong> — no solutions until you stop.<br>' + (d.started_at ? `<span style="opacity:0.6">Started: ${d.started_at.slice(11, 16)}</span>` : '');
             startBtn.style.display = 'none';
             stopBtn.style.display = '';
           } else {
@@ -14439,7 +14490,7 @@ def find_max(arr):
         });
 
         const welcome = document.querySelector('.welcome-forge');
-        if (welcome) welcome.innerHTML = 'CODEBUDDY / <em>GUEST</em>';
+        if (welcome) welcome.innerHTML = 'ZANAKS AI / <em>GUEST</em>';
 
         const avatar = document.querySelector('.user-avatar-initial');
         if (avatar) avatar.textContent = 'G';
