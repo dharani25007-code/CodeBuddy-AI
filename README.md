@@ -1,298 +1,149 @@
 <div align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f1117,50:7C3AED,100:00ffe0&height=200&section=header&text=Zanaks%20AI&fontSize=52&fontColor=ffffff&fontAlignY=40&desc=Next-Gen%20AI%20Coding%20Platform&descAlignY=60&descSize=18&animation=fadeIn"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f1117,50:7C3AED,100:00ffe0&height=200&section=header&text=Zanaks%20AI&fontSize=52&fontColor=ffffff&fontAlignY=40&desc=Next-Gen%20Full-Stack%20AI%20Coding%20Studio%20(React%20%2B%20Python)&descAlignY=60&descSize=18&animation=fadeIn"/>
 </div>
 
 <div align="center">
 
+![React 18](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.0%2B-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![Supabase](https://img.shields.io/badge/PostgreSQL-Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-Local%20Dev-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Ollama](https://img.shields.io/badge/Ollama-Local%20AI-FF6F00?style=for-the-badge&logo=ollama&logoColor=white)
-![Free AI Fallbacks](https://img.shields.io/badge/Free%20AI%20Fallbacks-Open%20Source%20%2B%20Free%20Tier-7C3AED?style=for-the-badge)
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-4.0%2B-010101?style=for-the-badge&logo=socket.io&logoColor=white)
-![Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
-![Piston](https://img.shields.io/badge/Piston-API-4ecdc4?style=for-the-badge)
-![gTTS](https://img.shields.io/badge/gTTS-TTS-4ecdc4?style=for-the-badge)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)](https://github.com/dharani25007-code/codebuddy/pulls)
 
-> ⚡ **25+ Features · 5 Dynamic Themes · 20+ Languages · Ollama Local AI + Free Cloud Fallbacks**
+> ⚡ **28 World-First AI Features · Modern React 18 Frontend · Clean Modular Backend · Zero-Cost Local AI**
 
 </div>
 
---- 
-
-## 📌 Overview
-
-**Zanaks AI** is a next-generation full-stack AI-powered developer platform with **25+ features** — including multilingual voice coding, File Forge upload/edit/run, Video Analyzer, Code DNA fingerprinting, Rubber Duck+ Mode, and a **triple-provider AI architecture** (Ollama local GPU → Groq → OpenRouter). The platform features an ultra-responsive, dynamic 5-theme frontend engine (Gaming, Dark Pro, Warm, Professional, Minimal) and is deployed on **Render** with a **Supabase PostgreSQL** database for permanent cloud storage, and also supports SQLite for local development with zero configuration.
-
 ---
 
-## ✨ Core Features
+## 🏛️ Clean Project Architecture
 
-| Feature | Description |
-|---|---|
-| 🧠 **8 AI Modes** | General, Debug, Optimize, Explain, Interview, ML, DSA, Roadmap |
-| 🌍 **20+ Languages** | 9 Indian languages + French, German, Spanish, Japanese, Chinese & more |
-| 🗣️ **Tanglish AI** |  Tamil+English mixed language coding assistant |
-| 🔁 **Streaming** | Token-by-token with free-tier and local fallbacks |
-| ▶️ **Code Execution** | AI execution simulator (predicts outputs of all 50+ languages with zero local setup) + local compiler fallbacks |
-| 🧬 **Code DNA** | Builds your personal coding style — AI silently matches it |
-| 📁 **File Forge** | Upload, edit, run, and AI-refactor code files in the browser |
-| 🎬 **Video Analyzer** | Upload videos or analyze coding/tutorial links from the UI |
-| 🦆 **Rubber Duck+** | AI refuses to give answers, only asks Socratic questions |
-| 🎭 **Mood Engine** | Detects frustration and adapts AI tone in real-time |
-| 🔮 **Bug Prophecy** | Predicts which lines will break based on your past bug history |
-| 🕰️ **Thought Replay** | Watch AI debug step-by-step as a live timeline |
-| 🎤 **Voice-to-Voice** | Speak your bug → hear the fix spoken back (XTTS-v2 / gTTS) |
-| ⚔️ **Live Code Battle** | 1v1 real-time coding challenges, AI-judged |
-| 📓 **Personal Changelog** | Auto-generated daily learning diary from your sessions |
-| 🏆 **Karma + Leaderboard** | Earn points, unlock ranks NOVICE → GODMODE |
-| 👥 **Real-time Collab** | Multi-user rooms with SocketIO + WebRTC voice |
-| 🔬 **Error Autopsy** | Probabilistic root-cause ranking + diagnosis tree |
-| 🏷️ **Pair Naming Assistant** | Name quality scoring + reverse name-to-body check |
-| 🎯 **Focus Zone Detector** | Peak window analytics from your session timestamps |
-| 📱 **PWA Support** | Installable Progressive Web App with offline assets caching and startup icon generator |
-| 🔑 **Secure Recovery** | Self-service timed token-based password reset/recovery flow powered by SMTP mailers
-
----
-
-## 🗂️ Project Structure
+Zanaks AI is organized into clean, dedicated tiers: a **React 18 Frontend** with an ultra-modern cybernetic aerospace design system and a **Modular Python Backend** that powers the 28 World-First AI capabilities, WebSocket collaboration rooms, and zero-cost local LLM execution.
 
 ```
-codebuddy/
-├── app.py                          # Main Flask backend (being decomposed — routes + orchestration)
-├── appcore/                        # Layered helpers extracted from the historical monolith
-│   ├── __init__.py
-│   └── db.py                       # SQLite ↔ PostgreSQL connection layer (patches sqlite3.connect)
-├── Procfile                        # Render/Heroku startup command
-├── .env                            # API keys (local dev only, not committed)
-├── codebuddy.db                    # SQLite database (auto-created for local dev)
-├── requirements.txt
-├── gunicorn.conf.py                # Production Gunicorn defaults
-├── static/
-│   ├── css/
-│   │   ├── theme-system.css        # Shared theme variables for non-index pages
-│   │   ├── auth-theme-switcher.css # Auth-page theme selector styling
-│   │   └── cursor.css              # Shared custom cursor styling
-│   └── js/
-│       ├── theme-system.js         # Shared 5-theme initializer
-│       ├── auth-theme-switcher.js  # Login/register theme picker
-│       └── cursor.js               # Shared custom cursor controller
-├── templates/
-│   ├── index.html                  # Main dashboard + chat interface (with PWA manifest link)
-│   ├── login.html / register.html
-│   ├── forgot_password.html        # New: Request password recovery token UI
-│   ├── reset_password.html         # New: Reset password with timed token UI
-│   ├── profile.html
-│   ├── leaderboard.html
-│   ├── collab.html
-│   └── codebuddy_world_first.html  # Features Hub
-├── scripts/
-│   └── load_benchmark.py           # Concurrent endpoint benchmark harness
-├── scratch/
-│   └── generate_pwa_icons.py       # New: Generates high-quality PWA icons (192px/512px) using PIL
-└── coqui_profiles/                 # Voice clone samples (auto-created)
+Zanaks AI/
+├── backend/                         # 🐍 Python API & AI Services
+│   ├── app.py                       # Main Flask & SocketIO application server
+│   ├── run_backend.bat              # Direct Windows launcher for backend
+│   ├── requirements.txt             # Backend dependencies (Flask, Flask-CORS, Bcrypt)
+│   ├── gunicorn.conf.py             # Production Gunicorn WSGI configuration
+│   ├── Procfile                     # Cloud deployment configuration
+│   ├── generate_patent_pdf.py       # Patent feasibility matrix report generator
+│   ├── appcore/                     # Database engine & connection pooling
+│   │   ├── __init__.py
+│   │   └── db.py                    # Transparent SQLite / PostgreSQL switcher
+│   └── voice_profiles/              # Voice clone & TTS model cache
+│
+├── frontend/                        # ⚛️ React 18 & Vite Frontend Studio
+│   ├── package.json                 # React 18, Vite, Lucide dependencies
+│   ├── vite.config.js               # Dev server configuration with API proxy (port 3000)
+│   ├── index.html                   # HTML5 application shell & Google Fonts
+│   ├── standalone.html              # Zero-install browser-runnable React preview
+│   ├── public/                      # Static assets, SVG favicons, manifests
+│   │   └── favicon.svg              # 3D beveled aerospace Zanaks AI vector icon
+│   └── src/
+│       ├── main.jsx                 # React DOM mount entrypoint
+│       ├── App.jsx                  # Main application & routing coordinator
+│       ├── index.css                # Futuristic design system tokens, animations, scrollbars
+│       ├── context/
+│       │   ├── AuthContext.jsx      # Authentication state, guest login, streaks, karma
+│       │   └── ThemeContext.jsx     # Dark Plasma Void & Cyberpunk Light mode switcher
+│       ├── services/
+│       │   └── api.js               # Universal API client for chat, code runner, & AI features
+│       └── components/
+│           ├── Navbar.jsx           # Top navigation, model selector, streak fire, karma badge
+│           ├── Sidebar.jsx          # Conversation history, pin/rename/delete, workspace tabs
+│           ├── ChatView.jsx         # AI chat feed, Thought Replay drawer, code copy & run
+│           ├── CodeRunnerView.jsx   # Multi-language code editor (15+ langs) & Big-O complexity
+│           ├── WorldFirstSuite.jsx  # Interactive showcase for all 28 World-First capabilities
+│           ├── CollabView.jsx       # Real-time multi-user coding room & WebSocket chat
+│           ├── LeaderboardView.jsx  # Global developer rankings & daily streak cards
+│           ├── AuthModal.jsx        # Glassmorphic modal for Sign In, Sign Up, & Guest access
+│           ├── SettingsModal.jsx    # Assistant persona tuning & custom system memory
+│           └── VoiceModal.jsx       # Hands-free speech-to-speech coding loop
+│
+├── run.bat                          # 🚀 Master interactive launcher
+├── run_all.bat                      # 🚀 One-click full-stack launcher (Backend + Frontend)
+├── run_backend.bat                  # 🚀 Launches backend server on port 5000
+├── run_frontend.bat                 # 🚀 Launches React frontend on port 3000
+└── codebuddy.db                     # 💾 SQLite database (users, chats, karma, stats)
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Quickstart Guide
 
-### Prerequisites
-- Python 3.10 or newer
-- Pip (bundled with modern Python) and a virtual environment (recommended)
-- No paid API keys are required for the default free-only mode
-- **[Ollama](https://ollama.com)** (optional, recommended) — run AI locally on your GPU, zero cost, unlimited
-- Optional free-tier API keys for higher-quality cloud replies: OpenRouter and/or Groq
+### 1. Launch Everything in One Click
+Double-click **`run.bat`** in the project folder, or run:
+```cmd
+run.bat
+```
+This presents an interactive menu:
+- `[1]` Start Full Stack (Backend + React Frontend)
+- `[2]` Start Python Backend Server (Port 5000)
+- `[3]` Start React Frontend Dev Server (Port 3000)
+- `[4]` Open React 18 Standalone Preview in Browser
 
-### Install
+### 2. Manual Commands
+
+#### Python Backend:
 ```bash
-git clone https://github.com/dharani25007-code/codebuddy.git
-cd codebuddy
+cd backend
 pip install -r requirements.txt
-```
-
-### Configure (Local Development)
-Create a `.env` file in the project root:
-```env
-SECRET_KEY=any-long-random-string
-FREE_ONLY_MODE=false
-OPENROUTER_API_KEY=your-openrouter-key
-GROQ_API_KEY=your-groq-key
-# Leave DATABASE_URL commented out for local SQLite development
-# DATABASE_URL=postgresql://...
-
-# Ollama Local AI (optional — auto-detected at localhost:11434)
-OLLAMA_ENABLED=true
-OLLAMA_MODEL=qwen2.5-coder:7b
-# OLLAMA_URL=http://localhost:11434
-
-# Alphanumeric code accepted for account-deletion OTP ONLY when SMTP is
-# unreachable in local dev. LEAVE UNSET in production — when unset there is no
-# bypass at all and the recovery path is the generated code in the server logs.
-# OTP_FALLBACK_CODE=some-secret-dev-only-code
-
-# SMTP Config for Password Recovery (optional, logs fallback if omitted)
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USERNAME=your-email@gmail.com
-SMTP_PASSWORD=your-app-password
-SMTP_SENDER=your-email@gmail.com
-```
-
-The app runs without any AI keys in free-only mode. Add optional free-tier keys only if you want better hosted responses. If SMTP configuration is omitted, generated recovery links are safely output to the server logs.
-
-### Run Locally
-
-**With Ollama (recommended — free, fastest, unlimited):**
-```bash
-# Terminal 1: Start Ollama (if not running as service)
-ollama serve
-
-# Terminal 2: Pull models (one-time)
-ollama pull qwen2.5-coder:7b
-ollama pull llama3.2:3b
-
-# Terminal 3: Start CodeBuddy
 python app.py
 ```
+Backend will be available at: `http://127.0.0.1:5000` (Health check: `http://127.0.0.1:5000/api/health`)
 
-**Without Ollama (uses cloud APIs):**
+#### React Frontend:
 ```bash
-python app.py
+cd frontend
+npm install
+npm run dev
 ```
-
-Open: `http://127.0.0.1:5000` → Register → New Chat → Pick a mode 🚀
-
-> **Note:** Running locally uses **SQLite** by default (fast, no configuration needed). The cloud deployment uses PostgreSQL. If Ollama is running, all AI queries hit your local GPU (₹0 cost). If not, the app falls back to Groq/OpenRouter cloud APIs automatically.
+Frontend will be available at: `http://localhost:3000`
 
 ---
 
-## ☁️ Free Cloud Deployment (Render + Supabase)
+## ✨ 28 World-First AI Capabilities
 
-CodeBuddy is deployed 100% free using:
-- **[Render.com](https://render.com)** — Free web hosting (no credit card required)
-- **[Supabase.com](https://supabase.com)** — Free PostgreSQL cloud database (no credit card required)
+Zanaks AI introduces 28 groundbreaking features designed for modern software engineers:
 
-### Deploy Your Own Instance
-
-1. **Fork** this repository to your GitHub account.
-2. **Create a free Supabase project** at [supabase.com](https://supabase.com) and copy your PostgreSQL connection string (`DATABASE_URL`).
-3. **Create a new Web Service** on [render.com](https://render.com) and connect your GitHub repo.
-4. **Set the following Environment Variables** in the Render dashboard:
-
-| Key | Value |
-|---|---|
-| `SECRET_KEY` | Any long random string |
-| `DATABASE_URL` | Your Supabase `postgresql://...` connection string |
-| `OPENROUTER_API_KEY` | Your OpenRouter free API key |
-| `GROQ_API_KEY` | Your Groq free API key |
-| `FREE_ONLY_MODE` | `false` |
-| `COOKIE_SECURE` | `true` |
-| `BREVO_API_KEY` | *(Optional)* Brevo API key for transactional emails |
-| `GOOGLE_CLIENT_ID` | *(Optional)* Google OAuth Client ID |
-| `GOOGLE_CLIENT_SECRET` | *(Optional)* Google OAuth Client Secret |
-| `SMTP_SERVER` | *(Optional)* SMTP server address (e.g., `smtp.gmail.com`) |
-| `SMTP_PORT` | *(Optional)* SMTP server port (e.g., `587`) |
-| `SMTP_USERNAME` | *(Optional)* SMTP auth username/email |
-| `SMTP_PASSWORD` | *(Optional)* SMTP app password |
-| `SMTP_SENDER` | *(Optional)* Mail sender email header address |
-
-5. Click **Deploy** — Render will automatically build, run database migrations, and launch your app!
-
-### How it works
-The app uses a smart **database compatibility layer** in `appcore/db.py`:
-- **Locally** (no `DATABASE_URL` set): Uses fast local SQLite (`codebuddy.db`).
-- **On Render / Cloud** (`DATABASE_URL` set): Automatically connects to Supabase PostgreSQL via connection pooling (`psycopg2`). All queries (`?` params, `AUTOINCREMENT`, `PRAGMA table_info`, `datetime('now')`) are transparently translated to PostgreSQL on the fly.
+1. **Error Autopsy (#26)**: Probabilistic root-cause ranking + visual diagnosis tree before fixing code.
+2. **Pair Naming Assistant (#27)**: Name quality scoring + reverse body check: does this variable/function name match its implementation?
+3. **Focus Zone Detector (#28)**: Session timestamp analytics revealing when you code with the highest flow and lowest error rate.
+4. **Bug Prophecy Engine (#20)**: Predicts runtime crashes, null pointer exceptions, and race conditions before you compile.
+5. **Code DNA Fingerprinting (#19)**: Identifies your personal coding style vector and formats AI output to match it.
+6. **Dead Code Archaeologist (#18)**: AST parser that pinpoints uncalled methods, orphaned variables, and dead branches.
+7. **Cognitive Load Scorer (#22)**: Evaluates mental complexity rating & nested branch fatigue vector for human readability.
+8. **Thought Replay Debugger (#11)**: Streams the AI's internal step-by-step reasoning tree into an animated timeline.
+9. **Voice-to-Voice Coding Loop (#12)**: Speak your code problem verbally → hear the diagnosed fix spoken back.
+10. **Rubber Duck+ Mode (#23)**: Socratic AI mentor that deliberately refuses direct code solutions, prompting you with guided questions.
+11. **Code Mood Engine (#17)**: Detects developer frustration and adapts empathy, patience, and restorative tips.
+12. **Live Code Battle Arena (#13)**: Real-time 1v1 coding challenges with automated AI judging.
+13. **Code Karma System (#14)**: Peer review points, contribution badges, and rank progression.
+14. **Personal Changelog (#24)**: Auto-generated daily learning diary extracted from your sessions.
+15. **Confidence Calibrator (#25)**: Validates AI code suggestions against test cases and known edge risks.
+16. **Blind Code Review (#16)**: Anonymous code posting queue for objective peer grading.
+17. **Time Machine (#21)**: Seamlessly revert and inspect chronological revisions of any snippet.
+18. **Roadmap Generator**: Structured career and skill learning paths generated on demand.
 
 ---
 
-## 🤖 AI Provider Architecture (Triple Redundancy)
+## 🎨 Design Philosophy & Technology Stack
 
-```
-User Query
-    │
-    ▼
-┌─────────────────────────────────────────────────┐
-│  Priority 1: OLLAMA (Local GPU)                 │  ← FREE, fastest, unlimited
-│  Priority 2: GROQ (Cloud - Ultra Fast)          │  ← Free tier, 30 req/min
-│  Priority 3: OPENROUTER (Cloud - Fallback Chain)│  ← Free fallback chain
-└─────────────────────────────────────────────────┘
-```
-
-| Priority | Provider | Models | Cost | Speed |
-|---|---|---|---|---|
-| 🥇 **1st** | **Ollama** (local) | `qwen2.5-coder:7b` (coding) & `llama3.2:3b` (fast tasks) | **₹0 forever** | ~50ms |
-| 🥈 **2nd** | **Groq** (cloud) | `llama-3.1-8b` / `llama-3.3-70b` | Free tier | ~200ms |
-| 🥉 **3rd** | **OpenRouter** (cloud) | `nemotron-70b:free` → `llama-3.3-70b:free` → `qwen3-coder:free` → `gemma-3-4b:free` → `openrouter/free` | Free tier | ~500ms |
-| 🔧 **4th** | **Local heuristics** | Built-in pattern matching | ₹0 | Instant |
-
-If any provider fails (offline/rate-limited/error) → the next provider is tried automatically. Zero downtime.
+- **Theme Palette**: Dark Plasma Void (`#020408`), Deep Navy (`#060d1a`), Plasma Cyan (`#00ffe0`), Nova Purple (`#a855f7`), Fire Orange (`#ff6b2b`), Gold (`#fbbf24`).
+- **Typography**: `IBM Plex Mono` for code blocks, metrics, and memory tokens; `Inter` for clean modern interfaces.
+- **Micro-Animations**: Pulse glow accents, glassmorphic cards, custom cybernetic scrollbars.
+- **Zero-Cost Engine**: Runs offline with local Ollama models (`qwen2.5-coder:7b`, `llama3.2:3b`) with free cloud fallbacks to Groq and OpenRouter.
 
 ---
 
-## 🌍 Languages Supported
+## 📄 License
 
-**Indian (native script + TTS):** Tamil · Tanglish · Hindi · Telugu · Kannada · Malayalam · Bengali · Marathi · Gujarati · Punjabi
-
-**World:** French · German · Spanish · Japanese · Chinese · Korean · Arabic · Russian · Portuguese · Italian
-
----
-
-## 🧰 Tech Stack
-
-| Library | Role |
-|---|---|
-| Flask 3.0+ | Web framework |
-| Flask-Login | Authentication management |
-| Flask-Bcrypt | Password hashing |
-| Flask-SocketIO | Real-time WebSocket collaboration |
-| PostgreSQL (Supabase) / SQLite | Cloud database / Local database |
-| psycopg2-binary | PostgreSQL driver |
-| Ollama | Local GPU AI — zero cost, unlimited, offline capable |
-| OpenRouter / Groq | Cloud AI fallback chain (free tier) |
-| AI Output Simulator | Predicts and simulates run outputs of 50+ languages via Ollama/Groq/OpenRouter + local compiler fallbacks |
-| gTTS / XTTS-v2 | Text-to-speech and voice cloning |
-| Gunicorn | Production WSGI server |
-| python-dotenv | Load `.env` configuration |
-| requests | HTTP requests to external APIs |
-
----
-
-## 🔒 Security
-
-- Bcrypt password hashing · 30-day sessions · SameSite cookies
-- `COOKIE_SECURE=true` enforced in production (HTTPS only)
-- Rate limiting: 50 req/min chat · 30 req/min code execution
-- 192-bit random share tokens — no ID enumeration
-- SQL stat fields use a whitelist — zero raw input in queries
-- Security headers: `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`
-
----
-
-### Load Benchmark
-Run the built-in concurrent benchmark against the chat and code-run endpoints:
-
-```bash
-python scripts/load_benchmark.py --concurrency 6 --chat-requests 6 --code-requests 6
-```
-
-To hit the live server:
-
-```bash
-python scripts/load_benchmark.py --mode live --base-url https://codebuddy-0slh.onrender.com --concurrency 8 --chat-requests 12 --code-requests 12 --no-stub-upstreams
-```
-
-### Automated Tests
-```bash
-python -m unittest discover -s tests -p "test_*.py"
-```
-
----
-<div align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:4ecdc4,100:0f1117&height=120&section=footer"/>
-
-**Built by [Dharanidharan M](https://github.com/dharani25007-code)**
-</div>
+MIT License. Copyright © 2026 Dharanidharan M. All Rights Reserved.
+#   Z a n a k s - A I  
+ 
